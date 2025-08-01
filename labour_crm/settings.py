@@ -141,8 +141,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'replace-this-in-production')
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
-# ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
-ALLOWED_HOSTS = ['*']  # Update this in production
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
+
 # Installed Apps
 INSTALLED_APPS = [
     'django.contrib.admin',
