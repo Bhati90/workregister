@@ -186,16 +186,14 @@ WSGI_APPLICATION = 'labour_crm.wsgi.application'
 import os
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',  # or django.db.backends.postgresql if not using GIS
-        'NAME': os.environ.get('POSTGRES_DB', 'registration_db'),
-        'USER': os.environ.get('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'work1234'),
-        # 'HOST': os.environ.get('POSTGRES_HOST', 'host.docker.internal'),
-        'PORT': os.environ.get('POSTGRES_PORT', '5432'),
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+    )
 }
 
+# The default value is for local development using your docker-compose.yml
+# In production on Render, DATABASE_URL will be provided automatically.
 # Password Validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
