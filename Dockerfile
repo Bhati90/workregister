@@ -1,26 +1,33 @@
-# Dockerfile
+# Use official Python image
+FROM python:3.12
 
-# Use an official Python runtime as a parent image
-FROM python:3.13-slim
-
-# Set the working directory in the container
+# Set work directory
 WORKDIR /app
 
-# Install system dependencies needed for GDAL
+# Install GDAL and other system dependencies
 RUN apt-get update && apt-get install -y \
-    libgdal-dev
+    gdal-bin \
+    libgdal-dev \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy the requirements file into the container
-COPY requirements.txt .
+# Environment variable for GDAL
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
 
-# Install any needed packages specified in requirements.txt
+# Copy and install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --upgrade pip setuptools wheel
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the application code into the container
-COPY . .
+# Copy the project files
+COPY . /app/
 
-# Expose the port Gunicorn will run on
+# Collect static files
+RUN python manage.py collectstatic --noinput
+
+# Expose the port
 EXPOSE 8000
 
-# Set the command to run your app with Gunicorn
-CMD ["gunicorn", "labour_crm.wsgi", "--bind", "0.0.0.0:8000"]
+# Run Django with Gunicorn
+CMD ["gunicorn", "labour_crm.wsgi:application", "--bind", "0.0.0.0:8000"]

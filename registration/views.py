@@ -569,7 +569,6 @@
 #     return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
 # # Ensure username is unique, perhaps using mobile_number
 
-
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import JsonResponse
