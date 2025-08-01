@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-54c-xh!ea9mdtku-5bt38m7sz%lc03^p#&t0!1*u5y!nm#yi!0
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '','.onrender.com').split(',')
 AUTH_USER_MODEL = 'auth.User' 
 if 'RENDER' not in os.environ:
     ALLOWED_HOSTS.append('localhost')
@@ -134,7 +134,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'your_app_name/static'), # Replace with your app's static folder
+    os.path.join(BASE_DIR, 'labour_crm/static'), # Replace with your app's static folder
 ]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
