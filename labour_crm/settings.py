@@ -192,6 +192,13 @@ DATABASES = {
         conn_max_age=600,
     )
 }
+# --- TEMPORARY DEBUG PRINT ---
+print("\n--- DEBUG: DATABASES CONFIG ---")
+print(DATABASES['default']['ENGINE'])
+print("--- END DEBUG ---\n")
+# --- END TEMPORARY DEBUG PRINT ---
+
+# ... rest of your settings.py
 
 # The default value is for local development using your docker-compose.yml
 # In production on Render, DATABASE_URL will be provided automatically.
