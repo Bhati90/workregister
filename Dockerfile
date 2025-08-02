@@ -11,6 +11,9 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
+ARG DATABASE_URL
+
+ENV DATABASE_URL=$DATABASE_URL
 # Environment variable for GDAL
 ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
 ENV C_INCLUDE_PATH=/usr/include/gdal
